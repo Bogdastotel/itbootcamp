@@ -81,6 +81,7 @@
 
     sedmiDan(4);
     echo "<br>";
+    echo "<br>";
 
 
     function mesec_u_godini($mesec)
