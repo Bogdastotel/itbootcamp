@@ -38,7 +38,8 @@
 
     $suma = 0;
     $index = 0;
-    $najblizaVrednost = 0;
+    $najblizaVrednost = ($niz[0]);
+    
 
     for($i = 0; $i < count($niz); $i++) {
         $suma += $niz[$i];
@@ -46,12 +47,16 @@
     }
     $srednjaVrednost = $suma/count($niz);
 
-    if(($srednjaVrednost + 1) - $srednjaVrednost <= 1) {
-        $najblizaVrednost = $srednjaVrednost + 1;
+    for($i = 1; $i < count($niz); $i++) {
+        if(abs(($niz[$i])- $srednjaVrednost) < $najblizaVrednost) {
+            $index = $i;
+            $najblizaVrednost = $niz[$i];
+        }
     }
-    else if(($srednjaVrednost ))
 
-
+    echo $index;
+    echo "<br>";
+    echo $najblizaVrednost;
 
 
 
