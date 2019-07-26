@@ -49,13 +49,22 @@
 
         if (empty($_POST["ime"]) == TRUE) {
             $imeO = "Ime ne sme biti prazan string";
-        } else {
+        }
+        else if(preg_match("[a-z A-Z]",$_POST["ime"]) == FALSE ) {
+            $imeO = "Ime moze sadrzati samo slova";
+        }
+        else {
             $ime = $_POST["ime"];
         }
 
         if (empty($_POST["prezime"]) == TRUE) {
             $prezimeO = "prezime ne sme biti prazan string";
-        } else {
+        }
+        else if(preg_match("[a-z A-Z]",$_POST["prezime"]) == FALSE ) {
+            $prezimeO = "prezime moze sadrzati samo slova";
+        }
+        
+        else {
             $prezime = $_POST["prezime"];
         }
 
@@ -77,6 +86,15 @@
             $website = $_POST["sajt"];
         }
 
+        if (empty($_POST["komentar"]) == TRUE) {
+            $komentarO = "komentar ne sme biti prazan string";
+        }
+        else if (strlen($komentar) < 15) {
+            $komentarO = "komentar mora biti duzi od 15 karaktera";
+        }
+        else {
+            $komentar = $_POST["komentar"];
+        }
 
 
 
@@ -132,7 +150,7 @@
         <input type="text" name="sajt">
         <span class="error"><?php echo $websiteO; ?></span><br><br>
         <label for="">Komentar: </label><br><br>
-        <textarea name="komentar" id="" cols="30" rows="10"></textarea>
+        <textarea name="komentar" id="" cols="30" rows="10" minlength="15"></textarea>
         <span class="error"><?php echo $komentarO; ?></span><br><br>
         <label for="">Pol:</label>
         <input type="radio" name="pol" value="zenski">Zenski
