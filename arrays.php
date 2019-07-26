@@ -343,32 +343,24 @@
         }
     }
     echo "broj stringova koji pocinju na a: " . $brojac;
-    echo "<br>";
+   echo "<br>";
 
 
     // 19)Na osnovu celobrojnog niza $a[0], $a[1], ... formirati niz $b[0], $b[1], ... koji sadrži samo pozitivne brojeve. 
     // Za domaci
 
-    $a = array();
+    $a = array(1,-1, 2, -2, 3, -3);
     $b = array();
     foreach($a as $elem) {
         if($elem > 0) {
-            $b = $b[$elem];
+            $b[] = $elem;
         }
     }
 
+   
 
-
-
-
-
-
-
-
-
-
-
-
+    stampajNiz($b);
+    echo "<br>";
     // primer
 
 
@@ -401,7 +393,8 @@
     // $a[n – 1] * $b[n – 1].
 
     // za domaci
-    
+ 
+    // 21.
 
     $a = array(5, 8, 9, -2);
     $b = array(7, 0, 1, 2);

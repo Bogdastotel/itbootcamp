@@ -49,9 +49,10 @@
 
      $niz = 
      [
-        "Jelena" => "173",
+        "Vladana" => "173",
         "Milan" => "180",
-        "Dragan" => "192"
+        "Dragan" => "192",
+        "Vladimir" => "175",
      ];
 
     //  Ispisati sve osobe sa njihovim visinama.
@@ -96,6 +97,85 @@
             break;
         }
     }
+
+    echo "<br>";
+
+    // Ispisati sve osobe sa visinom ispod proseka, a čije ime počinje na slovo 'V'.
+
+    foreach($niz as $x => $x_value) {
+        if($x_value < $prosek && substr($x, 0, 1) === "V" ){
+            echo "Osobe sa visinom ispod proseka a koje pocinju na slovo V su: " . $x . "<br>";
+        }
+    }
+
+    echo "<br>";
+
+    /**Dat je niz elemenata u obliku NazivPredmeta/Ocena koju student ima.
+    Ispisati sve predmete i ocene studenta.
+    Odrediti najveću ocenu studenta koju ima, i ispisati predmete na kojima je dobio najveću ocenu.
+    Odrediti prosečnu ocenu studenta i ispisati predmete na kojima je dobio ocenu veću od prosečne. 
+     */
+    $niz = ["Istorija" => 2, "Geografija"=> 3, "Biologija"=> 4, "Hemija"=> 3, "Fizika"=> 2 ];
+
+    // Ispisati sve predmete i ocene studenta.
+
+    foreach($niz as $predmeti => $predmeti_value) {
+        echo "Predmet: " . $predmeti . " => " . " Ocena: " . $predmeti_value . "<br>";
+    }
+
+    // Odrediti najveću ocenu studenta koju ima, i ispisati predmete na kojima je dobio najveću ocenu.
+    $predmeti = array_keys($niz);
+    $najvecaOcena = $niz[$predmeti[0]];
+    for($i = 0; $i < count($niz); $i++) {
+        if($niz[$predmeti[$i]] > $najvecaOcena) {
+            $najvecaOcena = $niz[$predmeti[$i]];
+            return $najvecaOcena;
+        }
+    }
+    echo "Najveca ocena: " . $najvecaOcena . "<br>";
+    $brojPredmetaSaNajvecomOcenom = 0;
+
+    foreach($niz as $predmeti=>$predmeti_value) {
+        if($predmeti_value == $najvecaOcena) {
+            $brojPredmetaSaNajvecomOcenom++;
+            echo "Predmeti sa najvecom ocenom su: " . $predmeti . "<br>";
+        }
+    }
+
+    echo "<br>";
+
+    // Odrediti prosečnu ocenu studenta i ispisati predmete na kojima je dobio ocenu veću od prosečne. 
+
+    $sumaOcena = 0;
+    
+    foreach($niz as $predmeti=>$predmeti_value) {
+        $sumaOcena += $predmeti_value;
+        $prosecnaOcena = $sumaOcena/count($niz);
+
+    }
+
+    echo "Prosecna ocena studenta je: " . $prosecnaOcena . "<br>";
+
+    foreach($niz as $predmeti=> $predmeti_value) {
+        if($predmeti_value > $prosecnaOcena) {
+            echo "Predmedi na kojima je student dobio ocenu vecu od prosecne su: " . $predmeti . "<br>";
+        }
+    }
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     ?>

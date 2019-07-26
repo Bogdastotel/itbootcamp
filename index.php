@@ -1,63 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+
 <body>
+    <?php
 
-<?php 
 
-// 3) Odrediti srednju vrednost elemenata celobrojnog niza 
+    // 1) Odrediti koliko elemenata u nizu celih brojeva ima maksimalnu vrednost.
 
-    $niz2 = [2, 4, 6, 8, 10];
+    $niz = [1, 2, 3, 4, 5, 7, 8];
+    $maksimalnaVrednost = $niz[0];
+    $brojac = 0;
+
+
+    for ($i = 1; $i < count($niz); $i++) {
+        if ($niz[$i] > $maksimalnaVrednost) {
+            $maksimalnaVrednost = $niz[$i];
+        }
+    }
+    foreach ($niz as $vrednost) {
+        if ($vrednost == $maksimalnaVrednost) {
+            $brojac++;
+        }
+    }
+
+    echo "Elementi u nizu koji imaju maksimalnu vrednost: " . $brojac . "<br>";
+
+    // 2) Odrediti indeks i vrednost prvog člana niza realnih brojeva koji je najbliži srednjoj vrednosti.
+
+    $niz = [-1,2,4,7,-5,9];
+
     $suma = 0;
+    $index = 0;
+    $najblizaVrednost = $niz[0];
     
-    $brojElemenata = count($niz2);
-    for($i = 0; $i < $brojElemenata; $i++) {
-        $suma += $niz2[$i];
+    for($i = 0; $i < count($niz); $i++) {
+        $suma += $niz[$i];   
     }
+    $srednjaVrednost = $suma/count($niz);
 
-    echo "Srednja vrednost elemanata celobrojnog niza je: " . $suma/$brojElemenata;
-    
+    echo "Srednja vrednost je: " . $srednjaVrednost;
     echo "<br>";
-
-
-    // 4) Odrediti maksimalnu vrednost u celobrojnom nizu
-
-    $niz3 = [2, 2, 2];
-
-    $max = $niz3[0];
-
-    $Elementi = count($niz3);
-    for($i = 0; $i < $Elementi; $i++) {
-        if ($niz3[$i] > $max) {
-            $max = $niz3[$i];
-        }
-        
-    }
-
-    echo "Maksimalna vrednost celobrojnog niza je: " . $max;
-    echo "<br>";
-
-    // 5) Odrediti minimalnu vrednost u celobrojnom nizu
-
-    $niz4 = [10, 9, 8];
-
-    $min = $niz4[0];
-
-    $Elementi = count($niz4);
-    for($i = 0; $i < $Elementi; $i++) {
-        if ($niz4[$i] < $min) {
-            $min = $niz4[$i];
+    for($i = 1; $i < count($niz); $i++) {
+        if((abs($niz[$i] - $srednjaVrednost) < abs($najblizaVrednost - $srednjaVrednost)) ) {
+            $najblizaVrednost = $niz[$i];
+            $index = $i;
         }
     }
-
-    echo "Minimalna vrednost celobrojnog niza je: " . $min;
+    
+    echo "Index najblize vrednosti srednjoj vrednosti je: " . $index;
     echo "<br>";
+    echo "Najbliza vrednost je: " . $najblizaVrednost;
+    echo "<br>";
+
+    function stampajNiz($niz)
+    {
+        foreach ($niz as $elem) {
+            echo $elem . " ";
+        }
+        echo "<br>";
+    }
+
+    //19.
+
+    $a = array(1,-1, 2, -2, 3, -3);
+    $b = array();
+    foreach($a as $elem) {
+        if($elem > 0) {
+            $b[] = $elem;
+        }
+    }
+
+    stampajNiz($b);
+    echo "<br>";
+
+    // 21.
+
+    $a = array(5, 8, 9, -2);
+    $b = array(7, 0, 1, 2);
+    $c = array();
+
+    for ($i = 0; $i < count($a); $i++) {
+        $c[$i] = $a[$i] * $b[$i];
+    }
+
+    stampajNiz($c);
+    echo "<br>";
+
+
+
+
+
+
+
+
+
+
+
+
+
     ?>
-
 </body>
+
 </html>
