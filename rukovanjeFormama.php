@@ -15,7 +15,7 @@
 
 <body>
 
-    <form action="rukovanjeFormama.php" method="post">
+    <!-- <form action="rukovanjeFormama.php" method="post">
         <label for="">Name: </label>
         <input type="text" name="ime"><br><br>
         <label for="">E-mail:</label>
@@ -37,7 +37,7 @@
         <input type="number" name="number2" value="1"><br><br>
         <input type="submit" value="Izracunaj">
 
-    </form>
+    </form> -->
 
     <h2>Php Validacija Forme</h2>
 
@@ -50,7 +50,7 @@
         if (empty($_POST["ime"]) == TRUE) {
             $imeO = "Ime ne sme biti prazan string";
         }
-        else if(preg_match("[a-z A-Z]",$_POST["ime"]) == FALSE ) {
+        else if(preg_match('/^[a-z]*$/i', $_POST["ime"]) == FALSE)  {
             $imeO = "Ime moze sadrzati samo slova";
         }
         else {
@@ -58,10 +58,10 @@
         }
 
         if (empty($_POST["prezime"]) == TRUE) {
-            $prezimeO = "prezime ne sme biti prazan string";
+            $prezimeO = "Prezime ne sme biti prazan string";
         }
-        else if(preg_match("[a-z A-Z]",$_POST["prezime"]) == FALSE ) {
-            $prezimeO = "prezime moze sadrzati samo slova";
+        else if(preg_match('/^[a-z]*$/i', $_POST["prezime"]) == FALSE ) {
+            $prezimeO = "Prezime moze sadrzati samo slova";
         }
         
         else {
@@ -69,7 +69,7 @@
         }
 
         if (empty($_POST["email"]) == TRUE) {
-            $emailO = "email ne sme biti prazan string";
+            $emailO = "Email ne sme biti prazan string";
         } else if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL) == false) {
             $emailO = "Niste uneli email pravilno";
         }
@@ -78,7 +78,7 @@
         }
 
         if (empty($_POST["sajt"]) == TRUE) {
-            $websiteO = "sajt ne sme biti prazan string";
+            $websiteO = "Sajt ne sme biti prazan string";
         } else if (filter_var($_POST["sajt"], FILTER_VALIDATE_URL) == false) {
             $websiteO = "Niste uneli sajt pravilno";
         }
@@ -86,15 +86,26 @@
             $website = $_POST["sajt"];
         }
 
+
+        // if(strlen($_POST["komentar"]) < 15)
+        // {
+        //     $komentarO = "Komentar mora biti duži od 15 karaktera";
+        // }
+        // else
+        // {
+        //     $komentar = $_POST["komentar"];
+        // } 
         if (empty($_POST["komentar"]) == TRUE) {
-            $komentarO = "komentar ne sme biti prazan string";
+            $komentarO = "Komentar ne sme biti prazan string";
         }
-        else if (strlen($komentar) < 15) {
-            $komentarO = "komentar mora biti duzi od 15 karaktera";
+        else if (strlen($_POST["komentar"]) < 15) {
+            $komentarO = "Komentar mora biti duzi od 15 karaktera";
         }
-        else {
+        else  {
             $komentar = $_POST["komentar"];
         }
+        
+      
 
 
 
@@ -150,7 +161,7 @@
         <input type="text" name="sajt">
         <span class="error"><?php echo $websiteO; ?></span><br><br>
         <label for="">Komentar: </label><br><br>
-        <textarea name="komentar" id="" cols="30" rows="10" minlength="15"></textarea>
+        <textarea name="komentar" id="" cols="30" rows="10"></textarea>
         <span class="error"><?php echo $komentarO; ?></span><br><br>
         <label for="">Pol:</label>
         <input type="radio" name="pol" value="zenski">Zenski

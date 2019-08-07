@@ -5,104 +5,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Asocijativni nizovi-Domaci</title>
 </head>
 
 <body>
     <?php
 
+    /* Dat je niz elemenata u obliku NazivPredmeta/Ocena koju student ima.
+    Ispisati sve predmete i ocene studenta.
+    Odrediti najveću ocenu studenta koju ima, i ispisati predmete na kojima je dobio najveću ocenu.
+    Odrediti prosečnu ocenu studenta i ispisati predmete na kojima je dobio ocenu veću od prosečne.
 
-    // 1) Odrediti koliko elemenata u nizu celih brojeva ima maksimalnu vrednost.
+     */
 
-    $niz = [1, 2, 3, 4, 5, 7, 8];
-    $maksimalnaVrednost = $niz[0];
-    $brojac = 0;
+    $niz = ["Istorija" => 5, "Geografija" => 5, "Fizika" => 1, "Matematika" => 2];
 
+    // Ispisati sve predmete i ocene studenta.
 
-    for ($i = 1; $i < count($niz); $i++) {
-        if ($niz[$i] > $maksimalnaVrednost) {
-            $maksimalnaVrednost = $niz[$i];
-        }
-    }
-    foreach ($niz as $vrednost) {
-        if ($vrednost == $maksimalnaVrednost) {
-            $brojac++;
-        }
+    foreach ($niz as $predmeti => $predmeti_value) {
+        echo "Predmet: " . $predmeti . " -- Ocena: " . $predmeti_value . "<br>";
     }
 
-    echo "Elementi u nizu koji imaju maksimalnu vrednost: " . $brojac . "<br>";
+    echo "<br>";
 
-    // 2) Odrediti indeks i vrednost prvog člana niza realnih brojeva koji je najbliži srednjoj vrednosti.
+    // Odrediti najveću ocenu studenta koju ima, i ispisati predmete na kojima je dobio najveću ocenu.
 
-    $niz = [-1,2,4,7,-5,9];
+    $predmeti = array_keys($niz);
+    $najvecaOcena = $niz[$predmeti[0]];
+    for ($i = 0; $i < count($niz); $i++) {
+        if ($niz[$predmeti[$i]] > $najvecaOcena) {
+            $najvecaOcena = $niz[$predmeti[$i]];
+        }
+    }
 
-    $suma = 0;
-    $index = 0;
-    $najblizaVrednost = $niz[0];
+    echo "Najveca ocena je: " . $najvecaOcena . "<br>";
+
+    foreach ($niz as $predmeti => $predmeti_value) {
+        if ($predmeti_value == $najvecaOcena) {
+            echo "Predmeti sa najvecom ocenom: " . $predmeti . "<br>";
+        }
+    }
+    echo "<br>";
+    // Odrediti prosečnu ocenu studenta i ispisati predmete na kojima je dobio ocenu veću od prosečne.
+
+    $sumaOcena = 0;
     
-    for($i = 0; $i < count($niz); $i++) {
-        $suma += $niz[$i];   
+    foreach($niz as $predmeti=>$predmeti_value) {
+        $sumaOcena += $predmeti_value;
+        $prosecnaOcena = $sumaOcena/count($niz);
     }
-    $srednjaVrednost = $suma/count($niz);
-
-    echo "Srednja vrednost je: " . $srednjaVrednost;
-    echo "<br>";
-    for($i = 1; $i < count($niz); $i++) {
-        if((abs($niz[$i] - $srednjaVrednost) < abs($najblizaVrednost - $srednjaVrednost)) ) {
-            $najblizaVrednost = $niz[$i];
-            $index = $i;
+    echo "Prosecna ocena studenta je: " . $prosecnaOcena . "<br>";
+    foreach($niz as $predmeti=> $predmeti_value) {
+        if($predmeti_value > $prosecnaOcena) {
+            echo "Predmeti na kojima je student dobio ocenu vecu od prosecne su: " . $predmeti . "<br>";
         }
     }
+
     
-    echo "Index najblize vrednosti srednjoj vrednosti je: " . $index;
-    echo "<br>";
-    echo "Najbliza vrednost je: " . $najblizaVrednost;
-    echo "<br>";
-
-    function stampajNiz($niz)
-    {
-        foreach ($niz as $elem) {
-            echo $elem . " ";
-        }
-        echo "<br>";
-    }
-
-    //19.
-
-    $a = array(1,-1, 2, -2, 3, -3);
-    $b = array();
-    foreach($a as $elem) {
-        if($elem > 0) {
-            $b[] = $elem;
-        }
-    }
-
-    stampajNiz($b);
-    echo "<br>";
-
-    // 21.
-
-    $a = array(5, 8, 9, -2);
-    $b = array(7, 0, 1, 2);
-    $c = array();
-
-    for ($i = 0; $i < count($a); $i++) {
-        $c[$i] = $a[$i] * $b[$i];
-    }
-
-    stampajNiz($c);
-    echo "<br>";
-
-
-
-
-
-
-
-
-
-
-
+    
 
 
     ?>

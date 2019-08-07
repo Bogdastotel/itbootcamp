@@ -1,0 +1,75 @@
+table
+{
+    width: 100%;
+    margin: 0px;
+}
+
+th, td {
+border: 1px solid black;
+}
+
+.pac tr:hover {
+    background-color: #ececff;
+    cursor: pointer;
+}
+
+.pac tr:first-child {
+    color: #ffffff;
+    background-color: #6c7ae0;
+}
+
+.pac tr:last-child {
+    background-color: #6c7ae0;
+}
+
+.pac td {
+    font-family: Poppins-Regular;
+    font-size: 15px;
+    color: #666666;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f2f2f2;
+}
+
+.pac th {
+    font-family: Poppins-Regular;
+    font-size: 18px;
+    color: black;
+    padding: 19px 0 19px 10px;
+}
+
+.pac td:nth-child(1), .pac td:nth-child(2) {
+    width: 220px;
+}
+
+.pac td:nth-child(3), .pac td:nth-child(4) {
+    width: 80px;
+}
+/* za svaki parni red  */
+/* .pac tr:nth-child(even) {
+    background-color: #abcdab;
+} */
+
+/* ili */
+
+.pac tr:nth-child(2n) {
+    background-color: #abcdab;
+}
+
+/* za svaki neparni red */
+/* .pac tr:nth-child(odd) {
+    background-color: palevioletred;
+} */
+/* ili */
+.pac tr:nth-child(2n+1) {
+    background-color: lightgreen;
+}
+
+.pac td:nth-child(3)::after {
+    content: " (cm) ";
+}
+
+.pac td:nth-child(4)::after {
+    content: " (kg) ";
+}
+
