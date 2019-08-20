@@ -197,11 +197,202 @@ if($pacijent1->Kritican()) {
 else {
     echo "pacijent je normalan";
 }
+echo "<br>";
+
+class Brojevi {
+    private $br1;
+    private $br2;
+
+    public function __construct($br1,$br2)
+    {
+        $this->br1 = $br1;
+        $this->br2 = $br2;
+    }
+
+    public function setBr1($br1) {
+        $this->br1 = $br1;
+    }
+
+    public function getBr1() {
+        return $this->br1;
+    }
+    public function setBr2($br2) {
+        $this->br2 = $br2;
+    }
+
+    public function getBr2() {
+        return $this->br2;
+    }
+
+    public function Saberi($br1, $br2) {
+        $rez = $br1 + $br2;
+        return $rez;
+    }
+    public function Oduzmi($br1, $br2) {
+        $rez = $br1 - $br2;
+        return $rez;
+    }
+    public function Pomnozi($br1, $br2) {
+        $rez = $br1 * $br2;
+        return $rez;
+    }
+    public function Podeli($br1, $br2) {
+        $rez = $br1 / $br2;
+        return $rez;
+    }
+    
+
+
+    // public function sabiranje($br1,$br2) {
+    //     return $br1 + $br2;
+    // }
+    // public function oduzimanje($br1,$br2) {
+    //     return $br1 - $br2;
+    // }
+    // public function mnozenje($br1,$br2) {
+    //     return $br1 * $br2;
+    // }
+    // public function deljenje($br1,$br2) {
+    //     return $br1 / $br2;
+    // }
+
+}
+
+$broj1 = new Brojevi(2,3);
+
+$a = $broj1->getBr1();
+$b = $broj1->getBr2();
+$r = $broj1->Saberi($a,$b);
+echo "zbir je: " . $r . "<br>";
+$r = $broj1->Oduzmi($a,$b);
+echo "zbir je: " . $r . "<br>";
+$r = $broj1->Pomnozi($a,$b);
+echo "zbir je: " . $r . "<br>";
+$r = $broj1->Podeli($a,$b);
+echo "zbir je: " . $r . "<br>";
+// echo $broj1->sabiranje(2,3) . "<br>";
+// echo $broj1->oduzimanje(2,3) . "<br>";
+// echo $broj1->mnozenje(2,3) . "<br>";
+// echo $broj1->deljenje(3,3) . "<br>";
+
+class Kolca {
+    private $boja;
+    private $tip;
 
 
 
 
 
+    public function __construct($b,$t) {
+        $this->boja= $b;
+        $this->tip = $t;
+       
+    }
+    // jedna metoda 
+    public function setTip($t) {
+         $this->tip = $t;
+     }
+    public function setBoja($b) {
+       $this->boja = $b;
+    }
+  
+   public function getTip() {
+       return $this->tip;
+   }
+   public function getBoja() {
+        return $this->boja;
+}
+}
+
+
+$auto1 =new Kolca('Crvena', 'Kabriolet');
+// $auto1->boja= 'crvena';
+
+// $auto1->tip= 'kabriolet';
+
+$auto2 = new Kolca('Plava', 'Karavan');
+
+// $auto2->boja= 'plava';
+
+// $auto2->tip= 'karavan';
+
+$automobili = array($auto1, $auto2);
+
+foreach ($automobili as $auto) {
+    echo "Ovo je auto boje:  " . $auto->getBoja() . " " . " " . " , Tipa: " . $auto->getTip() . "<br>";
+}
+
+
+class Pacijentii {
+
+
+    private $imee;
+    private $visinaa;
+    private $tezinaa;
+
+    public function __construct($i,$v,$t) {
+        $this->imee = $i;
+        $this->visinaa = $v;
+        $this->tezinaa = $t;
+    }
+   
+    public function setImee($i) {
+        $this->imee = $i;
+    }
+    public function setVisinaa($v) {
+        $this->visinaa = $v;
+    }
+    public function setTezina($t) {
+        $this->tezinaa = $t;
+    }
+    public function getImee() {
+        return $this->imee;
+    }
+    public function getVisinaa() {
+        return $this->visinaa;
+    }
+    public function getTezinaa() {
+        return $this->tezinaa;
+    }
+    
+    function bmii() {
+
+        $bmi = ($this->tezinaa*10000)/($this->visinaa*$this->visinaa);
+        return $bmi; 
+    }
+
+    
+
+
+
+}
+
+
+$pacc1 = new Pacijentii("Dusan", 182, 82);
+$pacc2 = new Pacijentii("Milos", 159, 76);
+$pacc3 = new Pacijentii("Marko", 172, 65);
+
+$srednjaVisina = array($pacc1, $pacc2, $pacc3);
+$br = 0;
+$suma = 0;
+
+
+foreach ($srednjaVisina as $pacijent) {
+    $suma += $pacijent->getVisinaa();
+    $br +=1;
+}
+$izrSrVis= $suma / $br;
+echo $izrSrVis . "<br>";
+
+$najmanjaTezina = array($pacc1, $pacc2, $pacc3);
+$min = $najmanjaTezina[0]->getTezinaa();
+foreach ($najmanjaTezina as $tezina) {
+    if($min > $tezina->getTezinaa()) {
+        $min  = $tezina->getTezinaa();
+    }
+
+}
+echo $min;
 
 
 

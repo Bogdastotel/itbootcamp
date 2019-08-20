@@ -24,7 +24,7 @@
         }
 
        function Betoven() {
-            if ($this->imeKompozitora == "Betoven") {
+            if (strpos($this->imeKompozitora, 'Betoven') !== false){
                 return true;
             }
             else {
@@ -39,7 +39,7 @@
 
     $kompozicija1 = new Kompozicija;
     $kompozicija1->nazivKompozicije = "Moonlight sonata";
-    $kompozicija1->imeKompozitora = "Betoven";
+    $kompozicija1->imeKompozitora = "Ludvig van Betoven";
     $kompozicija1->godinaIzlaska = 1596;
     $kompozicija1->Stampaj();
     if ($kompozicija1->Barokna()) {
@@ -49,10 +49,10 @@
         echo "Kompozicija nije barokna" . "<br>";
     }
     if ($kompozicija1->Betoven()) {
-        echo "Kompozitor jeste Betoven" . "<br>";
+        echo "Ime autora sadrzi Betoven" . "<br>";
     }
     else {
-        echo "Kompozitor nije Betoven" . "<br>";
+        echo "Ime autora  ne sadrzi Betoven" . "<br>";
     }
 
     echo "<hr>";
@@ -69,10 +69,10 @@
         echo "Kompozicija nije barokna" . "<br>";
     }
     if ($kompozicija2->Betoven()) {
-        echo "Kompozitor jeste Betoven" . "<br>";
+        echo "Ime autora  sadrzi Betoven" . "<br>";
     }
     else {
-        echo "Kompozitor nije Betoven" . "<br>";
+        echo "Ime autora  ne sadrzi Betoven" . "<br>";
     }
 
     echo "<hr>";
@@ -89,10 +89,10 @@
         echo "Kompozicija nije barokna" . "<br>";
     }
     if ($kompozicija3->Betoven()) {
-        echo "Kompozitor jeste Betoven" . "<br>";
+        echo "Ime autora  sadrzi Betoven" . "<br>";
     }
     else {
-        echo "Kompozitor nije Betoven" . "<br>";
+        echo "Ime autora  ne sadrzi Betoven" . "<br>";
     }
 
 

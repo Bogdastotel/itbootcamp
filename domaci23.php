@@ -7,7 +7,7 @@
         private $brojStrana;
         private $cena = 2500;
 
-        public function __construct($n,$a,$g,$b,$c)
+        public function __construct($n, $a, $g, $b, $c)
         {
             $this->setNaslov($n);
             $this->setAutor($a);
