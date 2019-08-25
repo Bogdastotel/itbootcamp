@@ -68,7 +68,7 @@ class Pacijenti
 }
 
 
-$pacijent1 = new Pacijenti("Nikola", "Bogdanovic", 180, 80);
+$pacijent1 = new Pacijenti("Nikola", "Bogdanovic", 180, 82);
 $pacijent2 = new Pacijenti("Petar", "Petrovic", 190, 92);
 $pacijent3 = new Pacijenti("Ivko", "Ognjenovic", 165, 52);
 
@@ -84,30 +84,33 @@ function ispisElemenata($nizObjekata)
 
 ispisElemenata($nizObjekata);
 
+echo "<br>";
+
 echo "<hr>";
 // $pacijent1->ispis();
 // Funkcija koja ispisuje podatke o pacijentu sa najmanjom težinom.
 
 function PacijentSaNajmanjomTezinom($nizObjekata)
 {
-
+    $ispisMin = $nizObjekata[0];
     $min = $nizObjekata[0]->getTezina();
     foreach ($nizObjekata as $pacijenti) {
-        if ($min > $pacijenti->getTezina()) {
+        if ( $pacijenti->getTezina() < $min) {
             $min = $pacijenti->getTezina();
+            $ispisMin = $pacijenti;
         }
     }
-    echo "Minimalna tezina niza pacijenata je: " . $min . "<br>";
+    return $ispisMin;
     
 }
 
+$pacSaNajmanjomTez = PacijentSaNajmanjomTezinom($nizObjekata);
+
+echo "Pacijent sa najmanjom tezinom je: " . "<br>";
+$pacSaNajmanjomTez->ispis();
 
 
-
-
-PacijentSaNajmanjomTezinom($nizObjekata);
-
-echo "<br>";
+echo "<hr>";
 
 
 

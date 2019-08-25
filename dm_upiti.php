@@ -18,12 +18,10 @@ if($conn->connect_error)
 echo "Sve je uspesno" . "<br>";
 
 $sql = "CREATE TABLE IF NOT EXISTS korisnici (
-
                 id INT UNSIGNED AUTO_INCREMENT, 
                 username VARCHAR(60) NOT NULL UNIQUE,
                 password VARCHAR(255)  NOT NULL,
                 PRIMARY KEY(id)
-
             ) ENGINE = InnoDB;
             CREATE TABLE IF NOT EXISTS profili (
                 id INT UNSIGNED AUTO_INCREMENT,

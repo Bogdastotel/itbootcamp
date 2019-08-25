@@ -1,23 +1,4 @@
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="mrezaStyle.css">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
-
-
-
 <?php
-
-
 
 // konekcija na bazi 
 $servername = "localhost";
@@ -39,23 +20,20 @@ $conn->set_charset("utf8");
 
 $id = 1;
 
-// Ako se zalje zahtev za pracenje korisnika
-// if(isset($_GET['id'])) {...}
-// if(!empty ($_GET['id'])) {...}
-if(!empty($_GET['id'])) {
-    $pid = $conn->real_escape_string($_GET['id']) ;
-    // kad god se dohvata vrednost iz GET ili POST trebalo bi da se pozove real_escape_string 
-    // $id-logovan korisnik (koji salje zahtev)
-    // $pid - korisnik kojem se salje zahtev 
+// kad god se dohvata vrednost iz GET ili POST trebalo bi da se pozove real_escape_string 
+// $id-logovan korisnik (koji salje zahtev)
+// $pid - korisnik kojem se salje zahtev 
 
-    // provera nema li vec prijateljstva 
+if (!empty($_GET['id'])) {
+    $pid = $conn->real_escape_string($_GET['id']);
+
     $sql = "
     SELECT * FROM prijatelji 
     WHERE korisnik_id = $id AND prijatelj_id = $pid
-    
+     
     ";
     $result = $conn->query($sql);
-    if($result->num_rows == 0) {
+    if ($result->num_rows == 0) {
         $sql1 = "
         INSERT INTO prijatelji (korisnik_id, prijatelj_id) 
         VALUE ($id, $pid)
@@ -63,8 +41,6 @@ if(!empty($_GET['id'])) {
         $conn->query($sql1);
     }
 }
-
-
 
 ?>
 
@@ -74,10 +50,47 @@ if(!empty($_GET['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="mrezaStyle.css">
     <title>Document</title>
+    <style>
+        	header li.navi {
+                display: inline-block;
+                margin-top: 20px;
+				margin-left: 20px;
+				list-style-type: none;
+            }	
+            .navi a {
+                text-decoration: none;
+                color: white;
+            }
+            .navi a:hover {
+                color:lightskyblue;
+            }
+            a {
+                color:darkmagenta;
+            }
+            li, p {
+                color:white;
+            }
+            p {
+                margin-left: 200px;
+                margin-top: 50px;
+            }
+    </style>
 </head>
 
 <body>
+
+    <header>
+    <ul>
+        <li class='navi'><a href="indexx.php" target="_blank">HOME</a></li>
+        <li class='navi'><a href="prijateljiTabela.php" target="_blank">PRIJATELJI</a></li>
+        <li class='navi'><a href="formaZaEditovanjeProfila.php" target="_blank">EDIT</a></li>
+    
+    </ul>    
+    <header>
+    <hr>
+    
     <?php
     // prikazi sve korisnike koji nisu ja
 
@@ -98,8 +111,7 @@ if(!empty($_GET['id'])) {
     } else {
         if ($result->num_rows == 0) {
             echo "<p> Nemate nijednog korisnika u mrezi :( </p>";
-        } 
-        else {
+        } else {
             echo "<p> Korisnici: </p>";
             echo "<ul>";
 
@@ -119,7 +131,7 @@ if(!empty($_GET['id'])) {
                     echo "<span style='color:blue'>";
                     echo " (";
                     echo $red["username"];
-                    echo " )";  
+                    echo " )";
                     echo "</span>";
                 }
                 $pid = $red['id'];
@@ -129,59 +141,48 @@ if(!empty($_GET['id'])) {
                 AND prijatelj_id = $pid
                 ";
                 $result1 = $conn->query($sql1);
-                 $jatebe = $result1->num_rows;  // 0 ili 1
-                
-                 $sql2 = "
+                $jatebe = $result1->num_rows;  // 0 ili 1
+
+                $sql2 = "
                  SELECT * FROM prijatelji WHERE korisnik_id = $pid
                  AND prijatelj_id = $id
                  ";
 
-                 $result2 = $conn->query($sql2);
+                $result2 = $conn->query($sql2);
 
-                 $timene = $result2->num_rows; // 0 ili 1
+                $timene = $result2->num_rows; // 0 ili 1
 
-                if($jatebe + $timene > 1) {
+                if ($jatebe + $timene > 1) {
                     echo " uzajamni prijatelji";
                     echo "<a href='dm_brisi.php?brisi=$pid'> ";
                     echo " Brisi pracenje";
                     echo "</a>";
-                    echo "</li>";
-                    
-                }
-                elseif($jatebe) {
+                } elseif ($jatebe) {
                     echo " pratim korisnika ";
                     echo "<a href='dm_brisi.php?brisi=$pid'> ";
                     echo " Brisi pracenje";
                     echo "</a>";
-                    echo "</li>";
-                }
-                else if($timene) {
+                } else if ($timene) {
                     echo " korisnik mene prati";
-                    echo "<a href='dm_dodaj.php?dodaj=$pid'> ";
-                    echo "Prati korisnika";
+                    echo "<a href='dm_dodaj.php?dodaj=$pid'>";
+                    echo " Prati korisnika";
                     echo "</a>";
-                    echo "</li>";
+                } else {
+                    echo "nikakva veza";
+                    echo "<a href='dm_dodaj.php?dodaj=$pid'>";
+                    echo " Prati korisnika";
+                    echo "</a>";
                 }
 
-                
-                echo "<a href='dm_dodaj.php?dodaj=$pid'> ";
-                    echo "Prati korisnika";
-                    echo "</a>";
-                    echo "<a href='dm_brisi.php?brisi=$pid'> ";
-                    echo " Brisi pracenje";
-                    echo "</a>";
-                    echo "</li>";
-               
-
-                
+                echo "</li>";
             }
-
             echo "<ul>";
         }
     }
 
+    echo "<br>";
+    echo "<hr>";
 
     ?>
-</body>
 
-</html>
+</body>
