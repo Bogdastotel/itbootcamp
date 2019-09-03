@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-
-<body>
     <?php
 
 
@@ -667,7 +657,8 @@
             $suma = 0;
             $br = 0;
             foreach ($nizOcena as $ocena) {
-                $suma += $ocena;
+                // ako je ocena manja od 6 ili veca od 10 ocena koja se dodaje sumi je  6 ili vraca vrednost $ocena 
+                $suma += $ocena < 6 || $ocena > 10 ? 6 : $ocena;
                 $br++;
             }
             $this->prosecnaOcena = $suma / $br;
@@ -677,8 +668,7 @@
         {
             if (strlen($jmbg) == 13) {
                 $this->jmbg = $jmbg;
-            }
-            else if (strlen($jmbg) < 13 or strlen($jmbg) > 13) {
+            } else {
                 echo "jmbg studenta mora sadrzati 13 karaktera";
             }
         }
@@ -697,15 +687,15 @@
         public function setNizOcena($nizOcena)
         {
             for ($i = 0; $i < count($nizOcena); $i++) {
-                if ($nizOcena[$i] != 6 AND $nizOcena[$i] != 7 
-                AND $nizOcena[$i] != 8 AND $nizOcena[$i] != 9 AND $nizOcena[$i] != 10)  {
+                if (
+                    $nizOcena[$i] != 6 and $nizOcena[$i] != 7
+                    and $nizOcena[$i] != 8 and $nizOcena[$i] != 9 and $nizOcena[$i] != 10
+                ) {
                     $nizOcena[$i] = 6;
                 }
-                
-               
             }
             $this->nizOcena = $nizOcena;
-       }
+        }
 
         public function getJmbg()
         {
@@ -731,27 +721,227 @@
             return $this->prosecnaOcena;
         }
 
-        public function ispisiStudenta() {
-            echo "JMBG studenta je: " . "<br>";
-            echo  $this->getJmbg();
-            echo "<br>";
-            echo "Student : " . $this->getIme() . " " . $this->getPrezime();
-            echo "<br>";
-            echo "Ocene studenta su: " . "<br>";
+        public function ispis()
+        {
+            echo "Student: " . $this->getIme() . " " . $this->getPrezime() . 
+                "<br>JMBG: " . $this->getJmbg() . "<br>Niz ocena: ";
             foreach ($this->nizOcena as $ocena)
             {
                 echo $ocena . " ";
             }
-            echo "<br>";
-            echo "Prosecna ocena studenta je " . $this->prosecnaOcena;
+            echo "<br>Prosečna ocena: " . $this->prosecnaOcena . "<br><br>";
         }
+    }
+
+    
+
+    $student1 = new Student("0706991730044", "Nikola", "Bogdanovic", [6, 8, 9, 9 , 4]);
+    $student2 = new Student("0102992735055", "Tijana", "Zivkovic", [7, 9, 9, 10, 8]);
+    $student3 = new Student("0706994730045", "Milan", "Bogdanovic", [7, 8, 9, 10, 5]);
+    $student4 = new Student("0507997730048", "Stefan", "Stanimirovic", [6, 7, 9, 8, 7]);
+    // $student1->ispis();
+    $nizStudenata = array($student1, $student2, $student3, $student4);
+
+    function imePrezime($ime, $prezime, $nizStudenata)
+    {
+        $brojac = 0;
+        foreach ($nizStudenata as $student) {
+            if ($student->getIme() == $ime && $student->getPrezime() == $prezime) {
+                $brojac++;
+            }
+        }
+        return $brojac;
+    }
+
+    
+
+    echo " Broj studenata iz niza sa istim imenom i prezimenom: " . imePrezime("Nikola", "Bogdanovic", $nizStudenata);
+    echo "<hr>";
+
+
+    function srednjaOcena($nizStudenata) {
+        $suma = 0;
+        $br = 0;
+        foreach($nizStudenata as $student) {
+        $suma += $student->getProsecnaOcena();
+        $br++;
+        }
+        echo $suma/$br;
+    }
+
+    echo "Srednja ocena svih ocena studenata je: "  . "<br>";
+    srednjaOcena($nizStudenata);
+    echo "<br>";
+    echo "<hr>";
+
+    // function osrednji($nizStudenata)
+    // {
+    //     $razlika = abs(srednjaOcena($nizStudenata) - $nizStudenata[0]->getProsecnaOcena());
+    //     $osrednji = $nizStudenata[0];
+    //     foreach ($nizStudenata as $student)
+    //     {
+    //         if(abs(srednjaOcena($nizStudenata) - $student->getProsecnaOcena()) < $razlika)
+    //         {
+    //             $razlika = abs(srednjaOcena($nizStudenata) - $student->getProsecnaOcena());
+    //             $osrednji = $student;
+    //         }
+    //     }
+    //     echo "Student čiji je prosek najbliži srednjoj oceni svih studenata:<br>";
+    //     $osrednji->ispis();
+    // }
+
+    // osrednji($nizStudenata);
+
+    function osrednji($nizStudenata) {
+        $najbliziSrednjoj = $nizStudenata[0];
+
+        for($i = 1; $i<count($nizStudenata); $i++) {
+            if(abs(srednjaOcena($nizStudenata) - $nizStudenata[$i]->getProsecnaOcena()) >
+             abs(srednjaOcena($nizStudenata) - $nizStudenata[0]->getProsecnaOcena())) {
+                $najbliziSrednjoj = $nizStudenata[$i];
+            }
+        }
+        return $najbliziSrednjoj;
+    }
+
+    $najblizi = osrednji($nizStudenata);
+    $najblizi->ispis();
+    echo "<hr>";
+
+    function najmanjaOcenaNajboljeg($nizStudenata)
+    {
+        $najbolji = $nizStudenata[0];
+        
+        foreach($nizStudenata as $student) {
+            if($najbolji->getProsecnaOcena() < $student->getProsecnaOcena()) {
+                $najbolji = $student;
+            }
+        }
+        
+        $ocene = $najbolji->getNizOcena();
+        sort($ocene);
+        echo "Najmanja ocena najboljeg studenta je: ";
+        echo $ocene[0];
+        echo "<br><br>";
+        
+        // return $najbolji->ispis();
+
+    }
+
+    najmanjaOcenaNajboljeg($nizStudenata);
+
+
+    echo "<hr>";
+
+    // function najmanjaOcena($nizStudenata)
+    // {
+    //     $najmanjaOcena = $nizStudenata[0]->getNizOcena()[0];
+    //     foreach($nizStudenata as $student)
+    //     {
+    //         foreach($student->getNizOcena() as $ocena)
+    //         {
+    //             if ($ocena < $najmanjaOcena)
+    //             {
+    //                 $najmanjaOcena = $ocena;
+    //             }
+    //         }
+    //     }
+    //     return $najmanjaOcena;
+    // }
+
+    // echo "Najmanja ocena koju su studenti dobijali je: ";
+    // echo najmanjaOcena($nizStudenata);
+    // echo "<br><br>";
+
+    function najmanjaOcena($nizStudenata) {
+        $najmOcena = $nizStudenata[0]->getNizOcena()[0];
+        foreach($nizStudenata as $student) {
+            foreach($student->getNizOcena() as $ocena) {
+                if($ocena < $najmOcena) {
+                    $najmOcena = $ocena;
+                }
+            }
+        }
+        return $najmOcena;
 
 
     }
 
-    $student1 = new Student("0706991730044", "Nikola", "Bogdanovic", [6,8,9,5,4]);
+echo "Najmanja ocena koju su studenti dobijali je " . najmanjaOcena($nizStudenata) . "<br>";
 
-    $student1->ispisiStudenta();
+echo "<hr>";
+
+function najcescaOcena($nizStudenata) {
+    $br6 = 0;
+    $br7 = 0;
+    $br8 = 0;
+    $br9 = 0;
+    $br10 = 0;
+
+    foreach($nizStudenata as $student) {
+        foreach($student->getNizOcena() as $ocena) {
+            switch($ocena) {
+                case(6): 
+                $br6++;
+                break;
+                case(7): 
+                $br7++;
+                break;
+                case(8): 
+                $br8++;
+                break;
+                case(9): 
+                $br9++;
+                break;
+                case(10): 
+                $br10++;
+                break;
+              
+            }
+        }
+    }
+    if ($br6>$br7 AND $br6>$br8 AND $br6>$br9 AND $br6>$br10)
+    {
+        return 6;
+    }
+    elseif ($br7>$br6 AND $br7>$br8 AND $br7>$br9 AND $br7>$br10)
+    {
+        return 7;
+    }
+    elseif ($br8>$br6 AND $br8>$br7 AND $br8>$br9 AND $br8>$br10)
+    {
+        return 8;
+    }
+    elseif ($br9>$br6 AND $br9>$br7 AND $br9>$br8 AND $br9>$br10)
+    {
+        return 9;
+    }
+    elseif ($br10>$br6 AND $br10>$br7 AND $br10>$br8 AND $br10>$br9)
+    {
+        return 10;
+    }
+
+
+}
+
+echo "Najcesca ocena koju su studenti dobijali je: " . najcescaOcena($nizStudenata) . "<br>";  
+
+echo "<hr>";
+
+
+function rodjeniGodine($nizStudenata, $godina)
+{
+    foreach($nizStudenata as $student)
+    {
+        if(intval(substr($student->getJmbg(), 4, 3)) == ($godina % 1000))
+        {
+            $student->ispis();
+        }
+    }
+
+}
+
+rodjeniGodine($nizStudenata, 1991);
 
 
 
@@ -763,13 +953,4 @@
 
 
 
-
-
-
-
-
-
-    ?>
-</body>
-
-</html>
+   

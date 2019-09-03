@@ -1,31 +1,42 @@
 <?php
+// session_start();
+// require_once 'dm_konekcija.php';
+require_once 'dm_header.php';
+
+// include-ukljucuje fajl (nastavlja ako fajl ne postoji)
+// require-ukljucuje fajl (prekida ako fajl ne postoji)
+// include_once- II + ako je vec ukljucen, ne ukljucuje ga
+// require_once- II + ako je vec ukljucen
 
 // konekcija na bazi 
-$servername = "localhost";
-$username = "admin";
-$password = "admin123";
-$database = "mreza";
+// $servername = "localhost";
+// $username = "admin";
+// $password = "admin123";
+// $database = "mreza";
 
-// objekat konekcije
+// // objekat konekcije
 
-$conn = new mysqli($servername, $username, $password, $database);
+// $conn = new mysqli($servername, $username, $password, $database);
 
-if ($conn->connect_error) {
-    die("Neuspela konekcija! Razlog: " . $conn->connect_error);
-}
+// if ($conn->connect_error) {
+//     die("Neuspela konekcija! Razlog: " . $conn->connect_error);
+// }
 
-$conn->set_charset("utf8");
+// $conn->set_charset("utf8");
 
 // Podesavanje id logovanog korisnika 
-
-$id = 1;
+if(!isset($_SESSION['id'])) 
+{
+    header('Location: dm_login.php');
+}
+$id = $_SESSION['id'];
 
 // kad god se dohvata vrednost iz GET ili POST trebalo bi da se pozove real_escape_string 
 // $id-logovan korisnik (koji salje zahtev)
 // $pid - korisnik kojem se salje zahtev 
 
-if (!empty($_GET['id'])) {
-    $pid = $conn->real_escape_string($_GET['id']);
+if (!empty($_GET['dodaj'])) {
+    $pid = $conn->real_escape_string($_GET['dodaj']);
 
     $sql = "
     SELECT * FROM prijatelji 
@@ -42,6 +53,29 @@ if (!empty($_GET['id'])) {
     }
 }
 
+if(!empty($_GET['brisi'])) {
+    $pid = $conn->real_escape_string($_GET['brisi']);
+
+    $sql = "
+    SELECT * FROM prijatelji 
+    WHERE korisnik_id = $id
+    AND prijatelj_id = $pid
+    
+    ";
+    $result = $conn->query($sql);
+    if($result->num_rows > 0) {
+        $sql1 = "
+        DELETE FROM prijatelji 
+        WHERE korisnik_id = $id
+        AND prijatelj_id = $pid
+        ";
+        $result = $conn->query($sql1);
+    } //end- if unutrasnji
+    // header('Location: dm_prijatelji1.php');
+    // header('Location: vezbaUpitPrijateljiOOP.php');
+}//end- if spoljasnji
+
+
 ?>
 
 <html lang="en">
@@ -52,7 +86,8 @@ if (!empty($_GET['id'])) {
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="mrezaStyle.css">
     <title>Document</title>
-    <style>
+    <!-- <style>
+          
         	header li.navi {
                 display: inline-block;
                 margin-top: 20px;
@@ -76,20 +111,24 @@ if (!empty($_GET['id'])) {
                 margin-left: 200px;
                 margin-top: 50px;
             }
-    </style>
+    </style> -->
 </head>
 
-<body>
+<!-- body i header su ukljuceni u dm_header.php  -->
+
+<!-- <body>
 
     <header>
     <ul>
         <li class='navi'><a href="indexx.php" target="_blank">HOME</a></li>
-        <li class='navi'><a href="prijateljiTabela.php" target="_blank">PRIJATELJI</a></li>
+        <li class='navi'><a href="vezbaUpitPrijateljiOOP.php" target="_blank">PRIJATELJI</a></li>
         <li class='navi'><a href="formaZaEditovanjeProfila.php" target="_blank">EDIT</a></li>
+        <li class='navi'><a href="dm_logout.php" target="_blank">LOGOUT</a></li>
+
     
     </ul>    
     <header>
-    <hr>
+    <hr> -->
     
     <?php
     // prikazi sve korisnike koji nisu ja
@@ -117,9 +156,7 @@ if (!empty($_GET['id'])) {
 
             while ($red = $result->fetch_assoc()) {
                 echo "<li>";
-
                 echo $red["ime"];
-                echo " ";
                 echo $red["prezime"];
                 if ($red["pol"] == "Z") {
                     echo "<span style='color:red'>";
@@ -154,22 +191,22 @@ if (!empty($_GET['id'])) {
 
                 if ($jatebe + $timene > 1) {
                     echo " uzajamni prijatelji";
-                    echo "<a href='dm_brisi.php?brisi=$pid'> ";
+                    echo "<a href='dm_prijatelji1.php?brisi=$pid'> ";
                     echo " Brisi pracenje";
                     echo "</a>";
                 } elseif ($jatebe) {
                     echo " pratim korisnika ";
-                    echo "<a href='dm_brisi.php?brisi=$pid'> ";
+                    echo "<a href='dm_prijatelji1.php?brisi=$pid'> ";
                     echo " Brisi pracenje";
                     echo "</a>";
                 } else if ($timene) {
                     echo " korisnik mene prati";
-                    echo "<a href='dm_dodaj.php?dodaj=$pid'>";
+                    echo "<a href='dm_prijatelji1.php?dodaj=$pid'>";
                     echo " Prati korisnika";
                     echo "</a>";
                 } else {
                     echo "nikakva veza";
-                    echo "<a href='dm_dodaj.php?dodaj=$pid'>";
+                    echo "<a href='dm_prijatelji1.php?dodaj=$pid'>";
                     echo " Prati korisnika";
                     echo "</a>";
                 }
@@ -185,4 +222,4 @@ if (!empty($_GET['id'])) {
 
     ?>
 
-</body>
+    </body>

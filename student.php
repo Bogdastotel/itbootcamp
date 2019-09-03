@@ -109,7 +109,7 @@ Godinu rođenja preuzeti (odrediti) iz JMBG-a studenta.
         }
     }
 
-    $s1 = new Student ("0901995735013", "Nikola", "Bogdanovic", array(6,7,8,5,10,7,12));
+    $s1 = new Student ("09019957350131", "Nikola", "Bogdanovic", array(6,7,8,5,10,7,12));
     $s2 = new Student ("2605994654516", "Petar", "Jovanovic", array(6,10,6,5,8,7,9));
     $s3 = new Student ("0806996212165", "Ana", "Ilic", array(6,7,8,9,6,8,7));
     $s4 = new Student ("2506999654315", "Stefan", "Antic", array(10,8,6,8,7,4,8));

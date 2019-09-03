@@ -1,23 +1,29 @@
 
 <?php 
-$servername = "localhost";
-$username = "admin";
-$password = "admin123";
-$database = "mreza";
+session_start();
+require_once 'dm_konekcija.php';
+// $servername = "localhost";
+// $username = "admin";
+// $password = "admin123";
+// $database = "mreza";
 
-// objekat konekcije
+// // objekat konekcije
 
-$conn = new mysqli($servername, $username, $password, $database);
+// $conn = new mysqli($servername, $username, $password, $database);
 
-if ($conn->connect_error) {
-    die("Neuspela konekcija! Razlog: " . $conn->connect_error);
-}
+// if ($conn->connect_error) {
+//     die("Neuspela konekcija! Razlog: " . $conn->connect_error);
+// }
 
-$conn->set_charset("utf8");
+// $conn->set_charset("utf8");
 
 // Podesavanje id logovanog korisnika 
 
-$id = 1;
+if(!isset($_SESSION['id'])) 
+{
+    header('Location: dm_login.php');
+}
+$id = $_SESSION['id'];
 
 if(!empty($_GET['brisi'])) {
     $pid = $conn->real_escape_string($_GET['brisi']);

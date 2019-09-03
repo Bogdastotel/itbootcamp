@@ -15,12 +15,12 @@ if($conn->connect_error)
     die("Neuspela konekcija! Razlog: " . $conn->connect_error);
 }
 
-echo "Sve je uspesno" . "<br>";
+echo "Konekcija sa serverom je uspesna" . "<br>";
 
 $sql = "CREATE TABLE IF NOT EXISTS korisnici (
                 id INT UNSIGNED AUTO_INCREMENT, 
                 username VARCHAR(60) NOT NULL UNIQUE,
-                password VARCHAR(255)  NOT NULL,
+                pass VARCHAR(255)  NOT NULL,
                 PRIMARY KEY(id)
             ) ENGINE = InnoDB;
             CREATE TABLE IF NOT EXISTS profili (
