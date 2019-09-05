@@ -105,7 +105,7 @@ if (!empty($_GET['id'])) {
                 echo "<th>Akcija</th>";
                 echo "</tr>";
 
-                while ($red = mysqli_fetch_assoc($result)) {
+                while ($red = mysqli_fetch_assoc($result)) {    
                     $pid = $red['id'];
                     echo "<tr>";
                     echo "<td>" . "<a href='dm_profil.php?id=$pid'>" . $red['ime'] .  "</a>" . "</td>";
