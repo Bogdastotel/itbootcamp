@@ -83,12 +83,6 @@ $id = $_SESSION['id'];
 
 
 
-
-
-
-
-
-
 </body>
 
 </html>
