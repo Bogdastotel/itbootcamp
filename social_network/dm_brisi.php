@@ -17,7 +17,7 @@ require_once 'dm_konekcija.php';
 
 // $conn->set_charset("utf8");
 
-// Podesavanje id logovanog korisnika 
+// Podesavanje id logovanog korisnikaa
 
 if(!isset($_SESSION['id'])) 
 {
